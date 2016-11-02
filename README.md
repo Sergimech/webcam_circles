@@ -1,2 +1,2 @@
-# webcam_circleis
-Circle detection from online webcam images
+# webcam_capture
+Webcam capture and online circle detector

@@ -1,15 +1,15 @@
 
 //OpenCV 
-#include "opencv2/opencv.hpp"
-#include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
+#include "cv.h"
+#include "highgui.h"
+#include "opencv2/core/core.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
 //std
 #include <iostream>
 #include <cstdlib>
-#include <vector>
 
-//constants
+//Declaración de las constantes que intervienen en el reconocimiento
 const int GAUSSIAN_BLUR_SIZE = 7;
 const double GAUSSIAN_BLUR_SIGMA = 2; 
 const double CANNY_EDGE_TH = 150;
@@ -25,10 +25,17 @@ int main(int argc, char *argv[])
     cv::Mat image; //OpenCV image object
 	int cam_id; //camera id . Associated to device number in /dev/videoX
     cv::Mat gray_image;
-    std::vector<cv::Vec3f> circles;
+    cv::vector<cv::Vec3f> circles;
     cv::Point center;
     int radius;
     
+
+// 	cv::Ptr<cv::ORB> orb_detector = new cv::ORB(MIN_NUM_FEATURES); //ORB point feature detector
+//     cv::vector<cv::KeyPoint> point_set; //set of point features
+//     cv::Ptr<cv::DescriptorExtractor> orb_descriptor; //ORB descriptor
+//     orb_descriptor = cv::DescriptorExtractor::create("ORB"); //init the descriptor
+//     cv::Mat descriptor_set; //set of descriptors, for each feature there is an associated descriptor 
+	
 	//check user args
 	switch(argc)
 	{
@@ -45,7 +52,7 @@ int main(int argc, char *argv[])
 	}
 	
 	//advertising to the user 
-	std::cout << "Opening video device " << cam_id << std::endl;
+	std::cout << "Opening circle detector program" << cam_id << std::endl;
 
     //open the video stream and make sure it's opened
     if( !camera.open(cam_id) ) 
@@ -64,7 +71,7 @@ int main(int argc, char *argv[])
             cv::waitKey();
         }
         		
-    //**************** Find circles in the image ****************************
+   //**************** Find circles in the image ****************************
         
         //clear previous circles
         circles.clear();
@@ -85,15 +92,15 @@ int main(int argc, char *argv[])
             {
                     center = cv::Point(cvRound(circles[ii][0]), cvRound(circles[ii][1]));
                     radius = cvRound(circles[ii][2]);
-                    cv::circle(image, center, 5, cv::Scalar(0,0,255), -1, 8, 0 );// circle center in green
+                    cv::circle(image, center, 5, cv::Scalar(0,255,255), -1, 8, 0 );// circle center in yellow
                     cv::circle(image, center, radius, cv::Scalar(0,0,255), 3, 8, 0 );// circle perimeter in red
             }
-        }      
-        
+        }  
     //********************************************************************
     
         //show image
-        cv::imshow("Output Window", image);
+        cv::namedWindow( "Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
+        cv::imshow("Hough Circle Transform Demo", image);
 
 		//Waits 1 millisecond to check if a key has been pressed. If so, breaks the loop. Otherwise continues.
         if(cv::waitKey(1) >= 0) break;
