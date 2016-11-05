@@ -2,7 +2,7 @@
 
 ###Find circles in the image ###
 
-Webcam_circles allows you to set certain parameters in detecting circles. For example: MIN_CIRCLE DIST, we can modify the minimum distance to find a circle, so we can use this parameter to filter the number of circles to find. Const int const int MAX_RADIUS MIN_RADIUS or the can be used to filter or limit the size of the circle we want to find considering des focal length of the camera.
+Webcam_circles allows you to set certain parameters in detecting circles. For example: MIN_CIRCLE DIST, we can modify the minimum distance to find a circle, so we can use this parameter to filter the number of circles to find. Const int MAX_RADIUS or const int MIN_RADIUS or the can be used to filter or limit the size of the circle we want to find considering des focal length of the camera.
 
 The Hough transform
 
